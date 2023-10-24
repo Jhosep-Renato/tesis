@@ -7,16 +7,14 @@ html, body {
     text-align: center;
     padding: 10px;
     color: #fff;
+    margin-bottom: 30px;
 }
 
 main section {
-    margin-left: auto;
-    margin-right: auto;
     text-align: center;
 }
 
 article~article {
-    margin-top: 30px;
     width: 40%;
     height: 500px;
     margin-left: auto;
@@ -25,6 +23,7 @@ article~article {
     -moz-box-shadow: 2px 1px 18px 12px rgba(230,225,230,1);
     box-shadow: 2px 1px 18px 12px rgba(230,225,230,1);
     padding: 50px;
+    margin-top: 40px;
 }
 
 article~article div {
@@ -42,4 +41,31 @@ article~article div {
 .btn:hover {
     color: #3f51b5;
     border: 1px solid #3f51b5;
+}
+
+
+/* CSS DE ASISTENCIA */
+
+ul li a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+}
+
+ul li {
+    float: left;
+    list-style: none;
+    margin-right: 30px;
+}
+
+nav {
+    padding: 20px;
+}
+
+[href='../index.html'] {
+    margin-left: 920px;
+}
+
+select~table {
+    margin-top: 40px;
 }
