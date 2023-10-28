@@ -32,7 +32,7 @@ article~article div {
 
 }
 
-.btn {
+.btn-iniciar {
     width: 100%;
     background-color: #3f51b5;
     color: #fff;
@@ -68,4 +68,19 @@ nav {
 
 select~table {
     margin-top: 40px;
+}
+
+.btnI {
+    width: 50px;
+}
+
+.bimg {
+    width: 100%;
+}
+
+canvas {
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
 }
