@@ -23,14 +23,14 @@
                     <h4>Sistema de Planificación de Recursos Académicos y Empresariales</h4>
                 </article>
                 <article>
-                    <form action="/view/asistencia.html">
+                    <form id="formulario">
                         <div class="mb-3">
-                          <label for="exampleInputEmail1" class="form-label">Usuario</label>
-                          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su usuario">
+                          <label for="usuario" class="form-label">Usuario</label>
+                          <input type="text" class="form-control" id="usuario" aria-describedby="emailHelp" placeholder="Ingrese su usuario">
                         </div>
                         <div class="mb-3">
-                          <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Ingrese su contraseña">
+                          <label for="password" class="form-label">Contraseña</label>
+                          <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
                         </div>
                         <button type="submit" class="btn btn-iniciar">INICIAR SESIÓN</button>
                       </form>
@@ -42,5 +42,7 @@
             </section>
         </main>
     </div>
+
+    <script src="js/interaccion.js" ></script>
 </body>
 </html>
