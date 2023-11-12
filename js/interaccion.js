@@ -1,6 +1,6 @@
 document.getElementById('formulario').addEventListener('submit', (event) => {
-    event.preventDefault();
 
+    event.preventDefault();
     const usuario = document.getElementById('usuario');
 
     if(usuario.value === 'renato') {
@@ -10,8 +10,5 @@ document.getElementById('formulario').addEventListener('submit', (event) => {
     else if(usuario.value === 'admin') {
         window.location.href = '/view/administrador/editar.html';
     }
-    else {
-        alert('no es la contra')
-    }
-
+    console.log(usuario.value)
 })
