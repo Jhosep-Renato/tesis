@@ -13,7 +13,7 @@
                 <ul>
                     <li><a href="asistencia.html">Tomar Asistencia de alumnos</a></li>
                     <li><a href="historial.html">Historial de asistencias</a></li>
-                    <li><a href="../../index.html" class="seleccionar">Salir</a></li>
+                    <li><a href="../controller/session.php">Salir</a></li>
                 </ul>
             </nav>
         </header>
@@ -27,19 +27,18 @@
 
                         <select class="form-select" aria-label="Default select example" style="width: 200px;" id="cursos">
                             <option selected value="seleccionar">Seleccionar</option>
-                            <option value="hola">hola</option>
                         </select>
                         
 
-                        <div class="mensaje">
+                        <div class="mensaje" style="margin-top: 40px;">
                             <h2 style="color: green;">Hola <?php 
                             session_start();
                             echo $_SESSION['nombre'];
-                         ?> por favor seleccione un curso</h2>
+                         ?>, por favor seleccione un curso</h2>
                         </div>
 
 
-                        <div class="asistenciaDiv" style="display: none;">
+                        <div class="asistenciaDiv" style="display: none; margin-top: 40px;">
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
@@ -70,7 +69,7 @@
                         </div>
 
 
-                        
+
                     </article>
                         
                 </section>

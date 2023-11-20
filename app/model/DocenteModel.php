@@ -2,6 +2,7 @@
 
     include 'UsuarioModel.php';
     include '../conexion.php';
+    include 'CursoModel.php';
 
     class Docente extends Usuario
     {
@@ -43,5 +44,28 @@
                 $mysqli->close();
             }
         }
+
+        public function traerCursos($mysqli, $codDocente) 
+        {
+
+            try {
+                $stmt = $mysqli->prepare("SELECT * FROM curso WHERE codDocente = ?");
+                $stmt->bind_param("s", $codDocente);
+                $stmt->execute();
+
+                $resultado = $stmt->get_result();
+
+                $arrayCurso = $resultado->fetch_all(MYSQLI_ASSOC);
+
+                return $arrayCurso;
+                
+            } catch (Exception $e) {
+                return null;
+
+            } finally {
+                $stmt->close();
+                $mysqli->close();
+            }
+        } 
     }
 ?>

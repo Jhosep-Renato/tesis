@@ -16,7 +16,6 @@
 
     
     <div class="container my-4">
-
         <main>
             <section>
                 <article>
@@ -44,6 +43,5 @@
         </main>
     </div>
 
-    <script src="js/interaccion.js" ></script>
 </body>
 </html>

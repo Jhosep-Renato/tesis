@@ -2,6 +2,27 @@ const cursos = document.getElementById('cursos');
 const divAsistencia = document.querySelector('.asistenciaDiv');
 const mensaje = document.querySelector('.mensaje');
 
+
+fetch('../controller/DocenteController.php?action=obtenerCurso')
+        .then(res => res.json())
+        .then(data => {
+            
+            data.forEach(curso => {
+
+                const option = document.createElement('option');
+
+                option.value = "sas";
+                option.id = curso.codCurso;
+
+                cursos.appendChild(option);
+            });
+        })
+
+        .catch(err => {
+            console.error('Error al obtener los cursos: ', err);   
+})
+
+
 cursos.addEventListener("change", () => {
     
     if(cursos.value === 'seleccionar') {
