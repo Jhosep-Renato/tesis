@@ -67,5 +67,31 @@
                 $mysqli->close();
             }
         } 
+
+        public function obtenerAlumnos($mysqli, $curso) 
+        {   
+            $codG = null;
+
+            $stmt = $mysqli->prepare("SELECT * FROM grupocurso WHERE codCurso = ?");
+            $stmt->bind_param("s", $curso);
+            $stmt->execute();
+           
+            $resultado = $stmt->get_result();
+
+            $arrayCurso = $resultado->fetch_all(MYSQLI_ASSOC);
+
+            $grupo = $arrayCurso[0]['codGrupo'];
+
+            $stmt->close();
+
+            $stmt = $mysqli->prepare("SELECT * FROM alumno WHERE codGrupo = ?");
+            $stmt->bind_param("s", $grupo);
+            $stmt->execute();
+
+            $resultado = $stmt->get_result();
+            $arrayCurso = $resultado->fetch_all(MYSQLI_ASSOC);
+
+            return $arrayCurso;
+        }
     }
 ?>

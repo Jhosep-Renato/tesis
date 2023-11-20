@@ -11,14 +11,11 @@
         <?php include '../templates/header.php' ?>  
 
 
-        <div class="container">
-            <main>
-
-                <section >
-                    <article>
+        
                         <h1>Historial de asistencia</h1>
                         <select class="form-select" aria-label="Default select example" style="width: 200px;">
                             <option selected>Seleccionar</option>
+                            <option selected>Quimica</option>
                         </select>
                         
                         <table class="table table-bordered">
@@ -30,21 +27,26 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td> 50% </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td> 100% </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry the Bird</td>
-                                <td> 75% </td>
-                            </tr>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Soto Gutierrez</td>
+                                    <td> 100% </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Mark Gonzalo</td>
+                                    <td> 100% </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Luis Jara</td>
+                                    <td> 100% </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">4</th>
+                                    <td>Jhosep Pantja</td>
+                                    <td> 100% </td>
+                                </tr>
                             </tbody>
                         </table>
                     </article>
@@ -53,6 +55,6 @@
             </main>
         </div>
 
-
+        <script src="../js/interaccion.js"></script>
 </body>
 </html>

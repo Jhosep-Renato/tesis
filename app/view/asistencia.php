@@ -15,12 +15,15 @@
 
                 <section >
                     <article>
-                        <h1>Control de Asistencias</h1>
+                        <h1>Control de Asistencia</h1>
 
-                        <select class="form-select" aria-label="Default select example" style="width: 200px;" id="cursos">
+                        <select class="form-select" style="width: 200px;" id="cursos">
                             <option selected value="seleccionar">Seleccionar</option>
                         </select>
                         
+                        <select class="form-select" style="width: 200px; margin-top: 40px; display:none">
+
+                        </select>
 
                         <div class="mensaje" style="margin-top: 40px;">
                             <h2 style="color: green;">Hola <?php 
@@ -44,17 +47,31 @@
                                 <tbody>
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
+                                    <td>Soto Gutierrez</td>
+                                    <td>09/10/23</td>
                                     <td>ASISTIO</td>
-                                    <td> <button class="btnI btn"><img src="../img/check.png" class="bimg"></button> <button class="btnI btn"><img src="../img/x.png" class="bimg"></button></td>
+                                    <td> <button class="btnI btn" style="border: 1px solid black;"><img src="../img/check.png" class="bimg"></button> <button class="btnI btn"><img src="../img/x.png" class="bimg"></button></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
+                                    <td>Mark Gonzalo</td>
+                                    <td>09/10/23</td>
+                                    <td>ASISTIO</td>
+                                    <td> <button class="btnI btn" style="border: 1px solid black;"><img src="../img/check.png" class="bimg"></button> <button class="btnI btn"><img src="../img/x.png" class="bimg"></button></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Luis Jara</td>
+                                    <td>09/10/23</td>
+                                    <td>ASISTIO</td>
+                                    <td> <button class="btnI btn" style="border: 1px solid black;"><img src="../img/check.png" class="bimg"></button> <button class="btnI btn"><img src="../img/x.png" class="bimg"></button></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">4</th>
+                                    <td>Jhosep Pantja</td>
+                                    <td>09/10/23</td>
+                                    <td>ASISTIO</td>
+                                    <td> <button class="btnI btn" style="border: 1px solid black;"><img src="../img/check.png" class="bimg"></button> <button class="btnI btn"><img src="../img/x.png" class="bimg"></button></td>
                                 </tr>
                                 </tbody>
                             </table>

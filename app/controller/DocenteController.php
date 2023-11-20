@@ -36,6 +36,16 @@
             echo json_encode($resu);
             exit();
         }
+
+        public function obtenerAlumnos($mysqli, $curso) 
+        {
+            $docente = new Docente();
+
+            $resu = $docente->obtenerAlumnos($mysqli, $curso);
+
+            echo json_encode($resu);
+            exit();
+        }
     }
 
     $controller = new DocenteController();
@@ -45,11 +55,14 @@
     }
 
     if(isset($_GET['action'])) {
+
         $action = $_GET['action'];
 
         switch($action) {
 
             case 'obtenerCurso':  $controller->obtenercursos($mysqli);
+                                break;
+            case 'obtenerAlumno': $controller->obtenerAlumnos($mysqli, $_GET['curso']);
                                 break;
         }
     }
