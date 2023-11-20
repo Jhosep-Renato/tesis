@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="css/estilo.css" rel="stylesheet">
-    <link rel="icon" href="img/ovala.png">
+    <link href="app/css/estilo.css" rel="stylesheet">
+    <link rel="icon" href="app/img/ovala.png">
 </head>
 <body>
     <div class="bloqueAzul">
@@ -14,30 +14,31 @@
         <h4>FACULTAD DE INGENIERÍA MECÁNICA</h4>
     </div>
 
+    
     <div class="container my-4">
 
         <main>
             <section>
                 <article>
-                    <h4>INTRANET EARPFIM</h4>
+                    <h4><b>INTRANET EARPFIM</b></h4>
                     <h4>Sistema de Planificación de Recursos Académicos y Empresariales</h4>
                 </article>
                 <article>
-                    <form id="formulario">
+                    <form id="formulario" action="app/controller/DocenteController.php" method="post">
                         <div class="mb-3">
                           <label for="usuario" class="form-label">Usuario</label>
-                          <input type="text" class="form-control" id="usuario" aria-describedby="emailHelp" placeholder="Ingrese su usuario">
+                          <input type="text" class="form-control" id="usuario" aria-describedby="emailHelp" placeholder="Ingrese su usuario" name="usuario" required>
                         </div>
                         <div class="mb-3">
                           <label for="password" class="form-label">Contraseña</label>
-                          <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
+                          <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" name="password" required>
                         </div>
                         <button type="submit" class="btn btn-iniciar">INICIAR SESIÓN</button>
-                      </form>
+                    </form>
                       <hr>
-                      <figure>
-                        <img src="img/uni.png" style="width: 100px;">
-                      </figure>
+                    <figure>
+                      <img src="app/img/uni.png" style="width: 100px;">
+                    </figure>
                 </article>
             </section>
         </main>

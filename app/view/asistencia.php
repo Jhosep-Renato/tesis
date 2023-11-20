@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asistencia Alumnos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="../../css/estilo.css" rel="stylesheet">
+    <link href="../css/estilo.css" rel="stylesheet">
 </head>
 <body>
         <header class="bloqueAzul">
@@ -17,7 +17,6 @@
                 </ul>
             </nav>
         </header>
-
 
         <div class="container">
             <main>
@@ -45,7 +44,7 @@
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>ASISTIO</td>
-                                <td> <button class="btnI btn"><img src="../../img/check.png" class="bimg"></button> <button class="btnI btn"><img src="../../img/x.png" class="bimg"></button></td>
+                                <td> <button class="btnI btn"><img src="../img/check.png" class="bimg"></button> <button class="btnI btn"><img src="../img/x.png" class="bimg"></button></td>
                             </tr>
                             <tr>
                                 <th scope="row">2</th>
