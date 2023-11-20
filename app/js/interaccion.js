@@ -1,14 +1,15 @@
-document.getElementById('formulario').addEventListener('submit', (event) => {
+const cursos = document.getElementById('cursos');
+const divAsistencia = document.querySelector('.asistenciaDiv');
+const mensaje = document.querySelector('.mensaje');
 
-    event.preventDefault();
-    const usuario = document.getElementById('usuario');
-
-    if(usuario.value === 'renato') {
-        window.location.href = '/view/docente/asistencia.html';
-
+cursos.addEventListener("change", () => {
+    
+    if(cursos.value === 'seleccionar') {
+        mensaje.style.display = 'block';
+        divAsistencia.style.display = 'none';
     }
-    else if(usuario.value === 'admin') {
-        window.location.href = '/view/administrador/editar.html';
+    else {
+        mensaje.style.display = 'none';
+        divAsistencia.style.display = 'block';
     }
-    console.log(usuario.value)
-})
+});

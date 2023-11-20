@@ -30,6 +30,7 @@
     
                 if ($stmt->fetch()) {
                     $this->setCodDocente($codDocente);
+
                     return $codDocente;
                 } else {
                     return null;

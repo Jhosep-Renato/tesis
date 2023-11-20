@@ -1,7 +1,6 @@
 <?php
 
     include '../model/DocenteModel.php';
-    
 
     class DocenteController 
     {
@@ -17,7 +16,8 @@
             if(isset($resu)) {
                 session_start();
                 $_SESSION['docente'] = $resu;
-
+                $_SESSION['nombre'] = $user;
+                
                 header("Location: ../view/asistencia.php");
             } else {
                 header("Location: ../../index.php");
