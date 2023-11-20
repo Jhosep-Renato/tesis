@@ -8,15 +8,7 @@
     <link href="../../css/estilo.css" rel="stylesheet">
 </head>
 <body>
-        <header class="bloqueAzul">
-            <nav>
-                <ul>
-                    <li><a href="asistencia.html">Tomar Asistencia de alumnos</a></li>
-                    <li><a href="historial.html">Historial de asistencias</a></li>
-                    <li><a href="../../index.html" class="seleccionar">Salir</a></li>
-                </ul>
-            </nav>
-        </header>
+        <?php include '../templates/header.php' ?>  
 
 
         <div class="container">

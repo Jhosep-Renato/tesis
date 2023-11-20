@@ -11,8 +11,9 @@ fetch('../controller/DocenteController.php?action=obtenerCurso')
 
                 const option = document.createElement('option');
 
-                option.value = "sas";
+                option.value = curso.curso;
                 option.id = curso.codCurso;
+                option.innerHTML = curso.curso;
 
                 cursos.appendChild(option);
             });
