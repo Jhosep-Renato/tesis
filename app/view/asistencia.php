@@ -34,45 +34,18 @@
 
 
                         <div class="asistenciaDiv" style="display: none; margin-top: 40px;">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered tbAsistencia">
                                 <thead>
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">ESTUDIANTE</th>
-                                    <th scope="col">FECHA</th>
-                                    <th scope="col">ESTADO</th>
-                                    <th scope="col">Accion</th>
-                                </tr>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">ESTUDIANTE</th>
+                                        <th scope="col">FECHA</th>
+                                        <th scope="col">ESTADO</th>
+                                        <th scope="col">Accion</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Soto Gutierrez</td>
-                                    <td>09/10/23</td>
-                                    <td>ASISTIO</td>
-                                    <td> <button class="btnI btn" style="border: 1px solid black;"><img src="../img/check.png" class="bimg"></button> <button class="btnI btn"><img src="../img/x.png" class="bimg"></button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Mark Gonzalo</td>
-                                    <td>09/10/23</td>
-                                    <td>ASISTIO</td>
-                                    <td> <button class="btnI btn" style="border: 1px solid black;"><img src="../img/check.png" class="bimg"></button> <button class="btnI btn"><img src="../img/x.png" class="bimg"></button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Luis Jara</td>
-                                    <td>09/10/23</td>
-                                    <td>ASISTIO</td>
-                                    <td> <button class="btnI btn" style="border: 1px solid black;"><img src="../img/check.png" class="bimg"></button> <button class="btnI btn"><img src="../img/x.png" class="bimg"></button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>Jhosep Pantja</td>
-                                    <td>09/10/23</td>
-                                    <td>ASISTIO</td>
-                                    <td> <button class="btnI btn" style="border: 1px solid black;"><img src="../img/check.png" class="bimg"></button> <button class="btnI btn"><img src="../img/x.png" class="bimg"></button></td>
-                                </tr>
+
                                 </tbody>
                             </table>
                         </div>

@@ -43,7 +43,11 @@
 
             $resu = $docente->obtenerAlumnos($mysqli, $curso);
 
-            echo json_encode($resu);
+            if($resu != null) {
+                echo json_encode($resu);
+            } else {
+                echo null;
+            }
             exit();
         }
     }

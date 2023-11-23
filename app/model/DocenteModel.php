@@ -57,41 +57,41 @@
 
                 $arrayCurso = $resultado->fetch_all(MYSQLI_ASSOC);
 
+                $stmt->close();
                 return $arrayCurso;
                 
             } catch (Exception $e) {
                 return null;
 
             } finally {
-                $stmt->close();
                 $mysqli->close();
             }
         } 
 
         public function obtenerAlumnos($mysqli, $curso) 
         {   
-            $codG = null;
+            $sql = "CALL obtenerGrupo(?);";
 
-            $stmt = $mysqli->prepare("SELECT * FROM grupocurso WHERE codCurso = ?");
-            $stmt->bind_param("s", $curso);
-            $stmt->execute();
-           
-            $resultado = $stmt->get_result();
+            try {
+                $stmt = $mysqli->prepare($sql);
+                $stmt->bind_param("s", $curso);
+                $stmt->execute();
 
-            $arrayCurso = $resultado->fetch_all(MYSQLI_ASSOC);
+                $resultado = $stmt->get_result();
 
-            $grupo = $arrayCurso[0]['codGrupo'];
+                if( $resultado->num_rows > 0 ) {
+                    return $resultado->fetch_all(MYSQLI_ASSOC);
+                }
+                else {
+                    return null;
+                }
 
-            $stmt->close();
-
-            $stmt = $mysqli->prepare("SELECT * FROM alumno WHERE codGrupo = ?");
-            $stmt->bind_param("s", $grupo);
-            $stmt->execute();
-
-            $resultado = $stmt->get_result();
-            $arrayCurso = $resultado->fetch_all(MYSQLI_ASSOC);
-
-            return $arrayCurso;
+            } catch (Exception $e) {
+                throw new Exception($mysqli->error);
+            } finally {
+                $mysqli->close();
+            }
+            
         }
     }
 ?>
