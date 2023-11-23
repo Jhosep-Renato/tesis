@@ -4,7 +4,7 @@ const mensaje = document.querySelector('.mensaje');
 const tbasistencia = document.querySelector('.tbAsistencia');
 const tbody = tbasistencia.querySelector('tbody');
 
-fetch('../controller/DocenteController.php?action=obtenerCurso')
+fetch('../../controller/DocenteController.php?action=obtenerCurso')
         .then(res => res.json())
         .then(data => {
 
@@ -46,7 +46,7 @@ cursos.addEventListener("change", () => {
 
 
 function obtenerAlumnos(curso) {
-    fetch(`../controller/DocenteController.php?action=obtenerAlumno&curso=${curso}`)
+    fetch(`../../controller/DocenteController.php?action=obtenerAlumno&curso=${curso}`)
         .then(res => res.json())
         .then(data => {
 
