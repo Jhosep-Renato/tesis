@@ -4,9 +4,9 @@ const mensaje = document.querySelector('.mensaje');
 const tbasistencia = document.querySelector('.tbAsistencia');
 const tbody = tbasistencia.querySelector('tbody');
 
-fetch('../../controller/DocenteController.php?action=obtenerCurso')
-        .then(res => res.json())
-        .then(data => {
+fetch('../controller/DocenteController.php?action=obtenerCurso')
+        .then((res) => res.json())
+        .then((data) => {
 
             data.forEach(curso => {
 
@@ -19,9 +19,7 @@ fetch('../../controller/DocenteController.php?action=obtenerCurso')
                 cursos.appendChild(option);
             });
         })
-        .catch(err => {
-            console.error('Error al obtener los cursos: ', err);   
-})
+        .catch((err) => console.error('Erro al obtener los cursos' + err) );
 
 cursos.addEventListener("change", () => {
     
@@ -46,9 +44,9 @@ cursos.addEventListener("change", () => {
 
 
 function obtenerAlumnos(curso) {
-    fetch(`../../controller/DocenteController.php?action=obtenerAlumno&curso=${curso}`)
-        .then(res => res.json())
-        .then(data => {
+    fetch(`../controller/DocenteController.php?action=obtenerAlumno&curso=${curso}`)
+        .then((res) => res.json())
+        .then((data) => {
 
             data.forEach(a => {
                 const tr = document.createElement('tr');
@@ -74,8 +72,8 @@ function obtenerAlumnos(curso) {
                 tbody.appendChild(tr);
             });
         })
-        .catch(err => {
-            console.error('Error al obtener los alumnos: ', err)
+        .catch((err) => {
+            console.error('Error al obtener los alumnos: ' + err)
         });
 }
 
@@ -86,12 +84,12 @@ function inicializarBotones() {
     const img1 = document.createElement('img');
     const img2 = document.createElement('img');
 
-    button1.classList.add("btnI", "btn");
-    button2.classList.add("btnI", "btn");
+    button1.classList.add("btnI btn");
+    button2.classList.add("btnI btn");
     img1.classList.add("bimg");
     img2.classList.add("bimg");
-    img1.src = "../img/check.png";
-    img2.src = "../img/x.png";
+    img1.src = "../assets/img/check.png";
+    img2.src = "../assets/img/x.png";
 
     button1.appendChild(img1);
     button2.appendChild(img2);

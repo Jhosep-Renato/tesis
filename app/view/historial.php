@@ -42,6 +42,5 @@
             </main>
         </div>
 
-        <script src="../js/interaccion.js"></script>
 </body>
 </html>

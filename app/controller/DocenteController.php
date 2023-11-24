@@ -34,6 +34,7 @@
             $resu = $docente->traerCursos($mysqli, $_SESSION['docente']);
 
             echo json_encode($resu);
+
             exit();
         }
 
@@ -58,9 +59,10 @@
         $controller->validarLogin($mysqli);
     }
 
-    if(isset($_GET['action'])) {
+    $action = $_GET['action'];
 
-        $action = $_GET['action'];
+    if(isset($action)) {
+
 
         switch($action) {
 

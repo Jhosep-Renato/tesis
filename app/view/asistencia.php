@@ -63,6 +63,6 @@
             </main>
         </div>
 
-    <script src="../js/interaccion.js"></script>
+    <script src="../assets/js/interaccion.js"></script>
 </body>
 </html>
