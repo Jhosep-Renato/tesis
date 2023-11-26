@@ -1,7 +1,7 @@
 <?php 
         session_start();
 
-        if(!isset($_SESSION['nombre'])) {
+        if(!isset($_SESSION['usuario'])) {
             header('Location: ../../index.php');
         }
 ?>
@@ -35,7 +35,7 @@
 
                         <div class="mensaje" style="margin-top: 40px;">
                             <h2 style="color: green;">Hola <?php 
-                            echo $_SESSION['nombre'];
+                            echo $_SESSION['usuario'];
                          ?>, por favor seleccione un curso</h2>
                         </div>
 

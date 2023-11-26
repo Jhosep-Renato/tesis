@@ -1,9 +1,5 @@
 <?php 
 
-    session_start();
-    if(isset($_SESSION['nombre'])) {
-        header('Location: app/view/asistencia.php');
-    }
 ?>  
 
 <!DOCTYPE html>
@@ -31,7 +27,7 @@
                     <h4>Sistema de Planificación de Recursos Académicos y Empresariales</h4>
                 </article>
                 <article>
-                    <form id="formulario" action="app/controller/DocenteController.php" method="post">
+                    <form id="formulario" action="app/controller/UsuarioController.php" method="post">
                         <div class="mb-3">
                           <label for="usuario" class="form-label">Usuario</label>
                           <input type="text" class="form-control" id="usuario" aria-describedby="emailHelp" placeholder="Ingrese su usuario" name="usuario" required>

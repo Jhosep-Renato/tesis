@@ -1,6 +1,6 @@
 <?php
     $servidor = "localhost";
-    $bd = "asistencia";
+    $bd = "mydb";
     $usuario = "root";
     $contrasenia = "1234";
 

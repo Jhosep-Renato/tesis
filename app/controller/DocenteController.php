@@ -4,32 +4,13 @@
 
     class DocenteController 
     {
-        public function validarLogin($mysqli)
-        {
-            $user = $_POST['usuario'];
-            $password = $_POST['password'];
-
-            $docente = new Docente();
-
-            $resu = $docente->validarDocenteBd($mysqli, $user, $password);
-
-            if(isset($resu)) {
-                session_start();
-                $_SESSION['docente'] = $resu;
-                $_SESSION['nombre'] = $user;
-
-                header("Location: ../view/asistencia.php");
-            } else {
-                header("Location: ../../index.php");
-            }
-            exit();
-        }
+        
 
         public function obtenercursos($mysqli) 
         {
             session_start();
 
-            $docente = new Docente();
+            $docente = new DocenteModel();
 
             $resu = $docente->traerCursos($mysqli, $_SESSION['docente']);
 
@@ -40,7 +21,7 @@
 
         public function obtenerAlumnos($mysqli, $curso) 
         {
-            $docente = new Docente();
+            $docente = new DocenteModel();
 
             $resu = $docente->obtenerAlumnos($mysqli, $curso);
 
@@ -54,10 +35,6 @@
     }
 
     $controller = new DocenteController();
-
-    if(isset($_POST['usuario'])) {
-        $controller->validarLogin($mysqli);
-    }
 
     $action = $_GET['action'];
 

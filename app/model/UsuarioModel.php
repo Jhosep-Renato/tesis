@@ -1,41 +1,46 @@
 <?php 
 
-    class Usuario {
+    require('Usuario.php');
 
-        protected string $nombre;
-        protected string $apePaterno;
-        protected string $apeMaterno;
-        
-
-        public function setNombre($nombre)
+    class UsuarioModel 
+    {
+        public function validarUsuario($mysqli, $user, $password) 
         {
-            $this->nombre = $nombre;
-        }
 
-        public function setApePaterno($apePaterno)
-        {
-            $this->apePaterno = $apePaterno;
-        }
 
-        public function setApeMaterno($apeMaterno)
-        {
-            $this->apeMaterno = $apeMaterno;
-        }
+            try {
+                $consulta = 'SELECT * FROM usuario WHERE usuario = ? AND password = ?';
 
-        public function getNombre()
-        {
-            return $this->nombre;
-        }
 
-        public function getApeMaterno()
-        {
-            return $this->apeMaterno;
-        }
+                $stmt = $mysqli->prepare($consulta);
 
-        public function getApePaterno()
-        {
-            return $this->apePaterno;
+
+                $stmt->bind_param("ss", $user, $password);
+
+                $stmt->execute();
+
+                $resultado = $stmt->get_result();
+
+                if ($fila = $resultado->fetch_assoc()) {
+                    $usuario = new Usuario(
+                        $fila['idUsuario'],
+                        $fila['usuario'],
+                        $fila['password'],
+                        $fila['tipo'],
+                        $fila['codigoDocente']
+                    );
+                    return $usuario;
+                }
+                
+                return null;
+
+            } catch (Exception $e) {
+                return null;
+            } finally {
+                // Cerrar la conexión
+                $stmt->close();
+                $mysqli->close();
+            }
         }
     }
-
 ?>
