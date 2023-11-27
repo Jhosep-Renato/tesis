@@ -4,6 +4,7 @@ const mensaje = document.querySelector('.mensaje');
 const tbasistencia = document.querySelector('.tbAsistencia');
 const tbody = tbasistencia.querySelector('tbody');
 
+
 fetch('../controller/DocenteController.php?action=obtenerCurso')
         .then((res) => res.json())
         .then((data) => {
@@ -12,14 +13,14 @@ fetch('../controller/DocenteController.php?action=obtenerCurso')
 
                 const option = document.createElement('option');
 
-                option.value = curso.curso;
-                option.id = curso.codCurso;
-                option.innerHTML = curso.curso;
+                option.value = curso["codigoCurso"];
+                option.id = curso["codigoCurso"];
+                option.innerHTML = curso["nombre"];
 
                 cursos.appendChild(option);
             });
         })
-        .catch((err) => console.error('Erro al obtener los cursos' + err) );
+        .catch((err) => console.error('Error al obtener los cursos' + err) );
 
 cursos.addEventListener("change", () => {
     

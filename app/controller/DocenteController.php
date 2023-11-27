@@ -1,21 +1,19 @@
 <?php
 
     include '../model/DocenteModel.php';
+    require('../conexion.php');
 
     class DocenteController 
     {
-        
-
         public function obtenercursos($mysqli) 
         {
             session_start();
 
             $docente = new DocenteModel();
 
-            $resu = $docente->traerCursos($mysqli, $_SESSION['docente']);
+            $resu = $docente->obtenerCursos($mysqli, $_SESSION['codigo']);
 
-            echo json_encode($resu);
-
+            return $resu;
             exit();
         }
 

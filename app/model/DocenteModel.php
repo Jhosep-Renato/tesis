@@ -2,20 +2,25 @@
 
     class DocenteModel 
     {
-        public function traerCursos($mysqli, $codDocente) 
+        public function obtenerCursos($mysqli, $codDocente) 
         {
 
             try {
-                $stmt = $mysqli->prepare("SELECT * FROM curso WHERE codDocente = ?");
+                $consulta = "CALL obtenerCurso(?)";
+
+                $stmt = $mysqli->prepare($consulta);
+
                 $stmt->bind_param("s", $codDocente);
+
                 $stmt->execute();
 
                 $resultado = $stmt->get_result();
 
-                $arrayCurso = $resultado->fetch_all(MYSQLI_ASSOC);
-
                 $stmt->close();
-                return $arrayCurso;
+
+                $cursos = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+
+                echo json_encode($cursos);
                 
             } catch (Exception $e) {
                 return null;
@@ -51,6 +56,5 @@
             
         }
     }
-
 
 ?>

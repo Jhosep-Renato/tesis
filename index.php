@@ -1,6 +1,10 @@
 <?php 
 
-?>  
+    session_start();
+    if(isset($_SESSION['usuario'])) {
+        header('Location: app/view/asistencia.php');
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="es">
