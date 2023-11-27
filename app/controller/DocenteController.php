@@ -30,14 +30,33 @@
             }
             exit();
         }
+
+        public function registrarAsistencia($mysqli, $json)
+        {
+            $docente = new DocenteModel();
+            
+            $validacion = $docente->registrarAsistencia($mysqli, $json);
+
+            if($validacion) {
+                echo "registrado";
+            }
+            else {
+                echo 'incorrecto';
+            }
+        }
     }
 
     $controller = new DocenteController();
 
-    $action = $_GET['action'];
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $datos_json = file_get_contents("php://input");
 
-    if(isset($action)) {
+        $array = json_decode($datos_json, true);
+        $controller->registrarAsistencia($mysqli, $array);
+    }
 
+    if(isset($_GET['action'])) {
+        $action = $_GET['action'];
 
         switch($action) {
 

@@ -19,7 +19,7 @@
 <body>
         <?php require('templates/header.php') ?>
 
-        <div class="container">
+        <div class="container" style="height: 100%;">
             <main>
 
                 <section >
@@ -57,7 +57,11 @@
                                 </tbody>
                             </table>
 
-                            <button type="button" class="btn btn-outline-primary">Registrar</button>
+                            <button type="button" class="btn btn-outline-primary" id="registrar">Registrar</button>
+
+                            <div class="alert alert-success" role="alert" style="display: none;">
+                                Asistencia Registrada!
+                            </div>
                         </div>
 
                     </article>

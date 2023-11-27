@@ -78,3 +78,11 @@ select~table {
 .btn-outline-primary:hover {
     color: white;
 }
+
+
+div.alert {
+    width: 15%;
+    position: absolute;
+    margin-top: 30px;
+    left: 1230px;
+}

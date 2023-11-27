@@ -118,3 +118,49 @@ function posicionBotones(boton) {
 
     return columna.parentElement.cells[indiceColumna - 1];
 }
+
+
+document.getElementById('registrar').addEventListener('click', () => {
+    let filas = tbody.getElementsByTagName('tr');
+    let i = cursos.selectedIndex;
+    let curso = cursos.options[i].id;
+    let array = [];
+    for(let i = 0; i < filas.length; i++) {
+        let celda = filas[i].getElementsByTagName('td');
+
+        const asistencia = {
+            codigoAlumno : celda[0].innerHTML,
+            fecha : celda[2].innerHTML,
+            estado : celda[3].innerHTML,
+            curso : curso
+        }
+
+        array.push(asistencia);
+    }
+
+    registrarAsistencia(array);
+})
+
+const alerta = document.querySelector('.alert');
+function registrarAsistencia(asistencias) {
+
+    fetch("../controller/DocenteController.php", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: 
+            JSON.stringify(asistencias)
+    })
+        .then(res => res.text())
+        .then(data =>  {
+            
+            if(data === "registrado") {
+                alerta.style.display = 'block';
+
+                setTimeout(() => {
+                    alerta.style.display = 'none';
+                }, 3000);
+            }
+        })
+}

@@ -55,6 +55,43 @@
             }
             
         }
+
+        public function registrarAsistencia($mysqli, $asistencias) 
+        {   
+            session_start();
+
+            $sql = "CALL registrarAsistencia(?, ?, ?, ?)";
+            $exitos = true;
+
+            try {
+                
+                $stmt = $mysqli->prepare($sql);
+                
+                foreach($asistencias as $a) {
+                    $stmt->bind_param("ssss", $a['codigoAlumno'], 
+                                        $a['estado'], $a['curso'], $_SESSION['codigo']);
+                
+                    if (!$stmt->execute()) {
+                        $exitos = false;  // Marca como falso si hubo un fallo en alguna consulta
+                    }
+                }
+
+                $stmt->close();
+
+            } catch (mysqli_sql_exception $e) {
+                throw new Exception("Error en la consulta ".$e->getMessage(), $e->getCode());
+            } catch (Exception $e) {
+                throw new Exception("Error general: " . $e->getMessage(), $e->getCode());
+            } finally {
+                $mysqli->close();
+            }
+
+            if ($exitos) {
+                return $exitos;
+            } else {
+                return $exitos;
+            }
+        }
     }
 
 ?>
