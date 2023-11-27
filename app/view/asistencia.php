@@ -26,7 +26,7 @@
                     <article>
                         <h1>Control de Asistencia</h1>
 
-                        <select class="form-select" style="width: 200px;" id="cursos">
+                        <select class="form-select cursos" style="width: 200px;">
                             <option selected value="seleccionar">Seleccionar</option>
                         </select>
                         
@@ -64,6 +64,7 @@
             </main>
         </div>
 
-    <script src="../assets/js/interaccion.js"></script>
+    <script type="module" src="../assets/js/interaccion.js"></script>
+    <script type="module" src="../assets/js/asistencia.js"></script>
 </body>
 </html>

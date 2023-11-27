@@ -16,10 +16,10 @@
 
                 $resultado = $stmt->get_result();
 
-                $stmt->close();
-
+                
                 $cursos = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
 
+                $stmt->close();
                 echo json_encode($cursos);
                 
             } catch (Exception $e) {
@@ -32,7 +32,7 @@
 
         public function obtenerAlumnos($mysqli, $curso) 
         {   
-            $sql = "CALL obtenerGrupo(?);";
+            $sql = "CALL obtenerAlumnos(?);";
 
             try {
                 $stmt = $mysqli->prepare($sql);

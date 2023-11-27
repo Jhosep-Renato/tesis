@@ -22,7 +22,7 @@
         <?php require('templates/header.php') ?>  
 
                         <h1>Historial de asistencia</h1>
-                        <select class="form-select" aria-label="Default select example" style="width: 200px;">
+                        <select class="form-select cursos" aria-label="Default select example" style="width: 200px;">
                             <option selected>Seleccionar</option>
                         </select>
                         
@@ -44,5 +44,6 @@
             </main>
         </div>
 
+        <script type="module" src="../assets/js/interaccion.js"></script>
 </body>
 </html>
