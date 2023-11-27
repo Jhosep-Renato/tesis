@@ -5,6 +5,7 @@ const mensaje = document.querySelector('.mensaje');
 const tbasistencia = document.querySelector('.tbAsistencia');
 const tbody = tbasistencia.querySelector('tbody');
 
+let filas = tbody.rows.length;
 cursos.addEventListener("change", () => {
     
     if(cursos.value === 'seleccionar') {
@@ -12,7 +13,6 @@ cursos.addEventListener("change", () => {
         divAsistencia.style.display = 'none';
     }
     else {
-        let filas = tbody.rows.length;
 
         if(filas > 0) {
             eliminarFilas();
@@ -26,7 +26,6 @@ cursos.addEventListener("change", () => {
     }
 });
 
-
 function obtenerAlumnos(curso) {
     fetch(`../controller/DocenteController.php?action=obtenerAlumno&curso=${curso}`)
         .then((res) => res.json())
@@ -37,8 +36,8 @@ function obtenerAlumnos(curso) {
                 const td1 = document.createElement('td');
                 const td2 = document.createElement('td');
                 const td3 = document.createElement('td');
-                const td4 = document.createElement('td');
                 const td5 = document.createElement('td');
+                const td4 = document.createElement('td');
 
                 const botones = inicializarBotones();
 
@@ -58,6 +57,8 @@ function obtenerAlumnos(curso) {
 
                 tbody.appendChild(tr);
             });
+
+            agregarFunciones();
         })
         .catch((err) => {
             console.error('Error al obtener los alumnos: ' + err)
@@ -71,8 +72,8 @@ function inicializarBotones() {
     const img1 = document.createElement('img');
     const img2 = document.createElement('img');
 
-    button1.classList.add("btnI", "btn");
-    button2.classList.add("btnI", "btn");
+    button1.classList.add("btnI", "btn", "btC");
+    button2.classList.add("btnI", "btn", "btX");
     img1.classList.add("bimg");
     img2.classList.add("bimg");
     img1.src = "../assets/img/check.png";
@@ -88,4 +89,43 @@ function eliminarFilas() {
     while(tbody.firstChild) {
         tbody.removeChild(tbody.firstChild);
     }
+}
+
+function agregarFunciones() {
+
+    const botones = document.querySelectorAll('.btn');
+    let indice = 0;
+
+    botones.forEach((b) => {
+        b.addEventListener('click', () => {
+            if(b.classList.contains('btC')) {
+                let indice = posicionBotones(b);
+                indice.textContent = 'P';
+                indice.style.backgroundColor = '#B9EAB3';
+            } else if(b.classList.contains('btX')) {
+                let indice = posicionBotones(b);
+                indice.textContent = 'F';
+                indice.style.backgroundColor = '#F78A50';
+            }   
+        })
+    });
+
+    /* const btC = document.querySelectorAll('.btC');
+    const btX = document.querySelectorAll('.btX');
+
+    btC.addEventListener('click', () => {
+        console.log('Este es un botn check');
+    });
+
+    btX.addEventListener('click', () => {
+        console.log('Este es un boton x');
+    }); */
+}
+
+function posicionBotones(boton) {
+    const columna = boton.parentElement;
+    const fila = columna.parentElement;
+    const indiceColumna = Array.from(fila.children).indexOf(columna);
+
+    return columna.parentElement.cells[indiceColumna - 1];
 }
