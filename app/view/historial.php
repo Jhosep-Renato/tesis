@@ -27,12 +27,12 @@
                         </select>
                         
                         <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">ESTUDIANTE</th>
-                                <th scope="col">%</th>
-                            </tr>
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">ESTUDIANTE</th>
+                                    <th scope="col">%</th>
+                                </tr>
                             </thead>
                             <tbody>
 

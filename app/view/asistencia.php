@@ -43,7 +43,7 @@
 
                         <div class="asistenciaDiv" style="display: none; margin-top: 40px;">
                             <table class="table table-bordered tbAsistencia">
-                                <thead>
+                                <thead class="table-dark">
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">ESTUDIANTE</th>
@@ -56,6 +56,8 @@
 
                                 </tbody>
                             </table>
+
+                            <button type="button" class="btn btn-outline-primary">Registrar</button>
                         </div>
 
                     </article>

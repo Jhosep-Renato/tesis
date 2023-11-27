@@ -5,7 +5,7 @@ const mensaje = document.querySelector('.mensaje');
 const tbasistencia = document.querySelector('.tbAsistencia');
 const tbody = tbasistencia.querySelector('tbody');
 
-let filas = tbody.rows.length;
+
 cursos.addEventListener("change", () => {
     
     if(cursos.value === 'seleccionar') {
@@ -13,7 +13,7 @@ cursos.addEventListener("change", () => {
         divAsistencia.style.display = 'none';
     }
     else {
-
+        let filas = tbody.rows.length;
         if(filas > 0) {
             eliminarFilas();
         }
@@ -72,8 +72,8 @@ function inicializarBotones() {
     const img1 = document.createElement('img');
     const img2 = document.createElement('img');
 
-    button1.classList.add("btnI", "btn", "btC");
-    button2.classList.add("btnI", "btn", "btX");
+    button1.classList.add("btnI", "btn", "check");
+    button2.classList.add("btnI", "btn", "x");
     img1.classList.add("bimg");
     img2.classList.add("bimg");
     img1.src = "../assets/img/check.png";
@@ -93,33 +93,22 @@ function eliminarFilas() {
 
 function agregarFunciones() {
 
-    const botones = document.querySelectorAll('.btn');
-    let indice = 0;
+    const botones = document.querySelectorAll('.btnI');
 
     botones.forEach((b) => {
         b.addEventListener('click', () => {
-            if(b.classList.contains('btC')) {
+            if(b.classList.contains('check')) {
                 let indice = posicionBotones(b);
                 indice.textContent = 'P';
                 indice.style.backgroundColor = '#B9EAB3';
-            } else if(b.classList.contains('btX')) {
+
+            } else if(b.classList.contains('x')) {
                 let indice = posicionBotones(b);
                 indice.textContent = 'F';
-                indice.style.backgroundColor = '#F78A50';
+                indice.style.backgroundColor = '#D9B4BB';
             }   
         })
     });
-
-    /* const btC = document.querySelectorAll('.btC');
-    const btX = document.querySelectorAll('.btX');
-
-    btC.addEventListener('click', () => {
-        console.log('Este es un botn check');
-    });
-
-    btX.addEventListener('click', () => {
-        console.log('Este es un boton x');
-    }); */
 }
 
 function posicionBotones(boton) {
