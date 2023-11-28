@@ -26,7 +26,7 @@ cursos.addEventListener("change", async () => {
 
         const asistencia = await obtenerAsistencia(curso);
         
-        if(asistencia !== null) {
+        if(asistencia != null) {
            alumnosTabla(asistencia); 
         } else {
             obtenerAlumnos(curso);
@@ -205,20 +205,21 @@ async function obtenerAsistencia(curso) {
     })
     .then(response => {
         // Verifica si la respuesta tiene un estado exitoso (código 200)
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
+        /* if (!response.ok) {
+            return null;
+        } */
         // Convierte la respuesta a JSON y devuelve la promesa resultante
         return response.json();
     })
     .then(data => {
-        // Verifica si los datos no son nulos
-        console.log(data);
-        if (data != null) {
+        
+        if(data !== "null") {
             return data;
-        } else {
+        }
+        else {
             return null;
         }
+        
     })
     .catch(error => {
         console.error('Error al obtener asistencia:', error);

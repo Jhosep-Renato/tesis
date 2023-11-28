@@ -54,7 +54,7 @@
             if($validacion != null) {
                 echo json_encode($validacion, JSON_UNESCAPED_UNICODE);
             } else {
-                echo null;
+                echo json_encode("null");
             }
         }
     }
