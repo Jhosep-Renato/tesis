@@ -22,7 +22,16 @@ cursos.addEventListener("change", () => {
         divAsistencia.style.display = 'block';
 
         let i = cursos.selectedIndex;
-        obtenerAlumnos(cursos.options[i].id);
+        let curso = cursos.options[i].id;
+
+        let asistencia = obtenerAsistencia(curso);
+
+        if(asistencia !== null) {
+           alumnosTabla(asistencia); 
+        } else {
+            obtenerAlumnos(curso);
+        }
+        
     }
 });
 
@@ -31,38 +40,49 @@ function obtenerAlumnos(curso) {
         .then((res) => res.json())
         .then((data) => {   
 
-            data.forEach(a => {
-                const tr = document.createElement('tr');
-                const td1 = document.createElement('td');
-                const td2 = document.createElement('td');
-                const td3 = document.createElement('td');
-                const td5 = document.createElement('td');
-                const td4 = document.createElement('td');
-
-                const botones = inicializarBotones();
-
-                const date = Date.now();
-
-                td1.textContent = a['codigo'];
-                td2.textContent = `${a['nombre']} ${a['apePaterno']} ${a['apeMaterno']}`;
-                td3.textContent = `${new Date(date).toLocaleDateString()}`
-                td5.appendChild(botones[0]);
-                td5.appendChild(botones[1]);
-
-                tr.appendChild(td1);
-                tr.appendChild(td2);
-                tr.appendChild(td3);
-                tr.appendChild(td4);
-                tr.appendChild(td5);
-
-                tbody.appendChild(tr);
-            });
-
-            agregarFunciones();
+            alumnosTabla(data);
         })
         .catch((err) => {
             console.error('Error al obtener los alumnos: ' + err)
         });
+}
+
+function alumnosTabla(alumnos) {
+
+    alumnos.forEach(a => {
+        /* const tr = document.createElement('tr');
+        const td1 = document.createElement('td');
+        const td2 = document.createElement('td');
+        const td3 = document.createElement('td');
+        const td4 = document.createElement('td');
+        const td5 = document.createElement('td');
+
+        const botones = inicializarBotones();
+
+        const date = Date.now();
+
+        td1.textContent = a['codigo'];
+        td2.textContent = `${a['nombre']} ${a['apePaterno']} ${a['apeMaterno']}`;
+        td3.textContent = `${new Date(date).toLocaleDateString()}` */
+        
+        if(a.hasOwnProperty('estado')) {
+            
+            console.log('tiene estado');
+        }
+
+        /* td5.appendChild(botones[0]);
+        td5.appendChild(botones[1]);
+
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+        tr.appendChild(td5);
+
+        tbody.appendChild(tr); */
+    });
+
+    /* agregarFunciones(); */
 }
 
 function inicializarBotones() {
@@ -124,7 +144,8 @@ document.getElementById('registrar').addEventListener('click', () => {
     let filas = tbody.getElementsByTagName('tr');
     let i = cursos.selectedIndex;
     let curso = cursos.options[i].id;
-    let array = [];
+    let arrayAsistencias = [];
+    
     for(let i = 0; i < filas.length; i++) {
         let celda = filas[i].getElementsByTagName('td');
 
@@ -134,12 +155,11 @@ document.getElementById('registrar').addEventListener('click', () => {
             estado : celda[3].innerHTML,
             curso : curso
         }
-
-        array.push(asistencia);
+        arrayAsistencias.push(asistencia);
     }
-
-    registrarAsistencia(array);
+    registrarAsistencia(arrayAsistencias);
 })
+
 
 const alerta = document.querySelector('.alert');
 function registrarAsistencia(asistencias) {
@@ -150,7 +170,7 @@ function registrarAsistencia(asistencias) {
             'Content-Type': 'application/json'
         },
         body: 
-            JSON.stringify(asistencias)
+            JSON.stringify({ asistencias: asistencias})
     })
         .then(res => res.text())
         .then(data =>  {
@@ -163,4 +183,25 @@ function registrarAsistencia(asistencias) {
                 }, 3000);
             }
         })
+}
+
+function obtenerAsistencia(curso) {
+
+    fetch("../controller/DocenteController.php", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body:
+            JSON.stringify({ curso: curso})
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if(data != null) {
+                return data;
+            } else {
+                return null;
+            }
+        });
 }

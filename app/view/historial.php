@@ -25,6 +25,8 @@
                         <select class="form-select cursos" aria-label="Default select example" style="width: 200px;">
                             <option selected>Seleccionar</option>
                         </select>
+
+                        <input type="date" class="form-control" id="fecha" name="fecha" required>
                         
                         <table class="table table-bordered">
                             <thead class="table-dark">

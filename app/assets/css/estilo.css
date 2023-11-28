@@ -86,3 +86,8 @@ div.alert {
     margin-top: 30px;
     left: 1230px;
 }
+
+#fecha {
+    width: 12%;
+    margin-top: 20px;
+}

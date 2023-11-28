@@ -1,4 +1,5 @@
 <?php 
+    require('../conexion.php');
 
     class DocenteModel 
     {
@@ -90,6 +91,39 @@
                 return $exitos;
             } else {
                 return $exitos;
+            }
+        }
+
+
+        public function obtenerAsistencia($mysqli, $curso)
+        {
+            $hoy = date("Y-m-d");
+            
+            $sql = "CALL obtenerAsistencia(?, ?);";
+
+            try {
+
+                $stmt = $mysqli->prepare($sql);
+                $stmt->bind_param("ss", $curso, $hoy);
+                $stmt->execute();
+
+                $resultado = $stmt->get_result();
+
+                if( $resultado->num_rows > 0 ) {
+                    return $resultado->fetch_all(MYSQLI_ASSOC);
+                }
+                else {
+                    return null;
+                }
+
+                $stmt->close();
+
+            } catch (mysqli_sql_exception $e) {
+                throw new Exception("Error en la consulta ".$e->getMessage(), $e->getCode());
+            } catch (Exception $e) {
+                throw new Exception("Error general: ". $e->getMessage(), $e->getCode());
+            } finally {
+                $mysqli->close();
             }
         }
     }

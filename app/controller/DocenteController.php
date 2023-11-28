@@ -44,6 +44,19 @@
                 echo 'incorrecto';
             }
         }
+
+        public function obtenerAsistencia($mysqli, $dato) 
+        {   
+            $docente = new DocenteModel();
+
+            $validacion = $docente->obtenerAsistencia($mysqli, $dato);
+        
+            if($validacion != null) {
+                echo json_encode($validacion, JSON_UNESCAPED_UNICODE);
+            } else {
+                echo null;
+            }
+        }
     }
 
     $controller = new DocenteController();
@@ -51,8 +64,14 @@
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $datos_json = file_get_contents("php://input");
 
-        $array = json_decode($datos_json, true);
-        $controller->registrarAsistencia($mysqli, $array);
+        $dato = json_decode($datos_json, true);
+
+        if(isset($dato['curso'])) {
+            $controller->obtenerAsistencia($mysqli, $dato['curso']);
+        }
+        else if(isset($dato['asistencias'])) {
+            $controller->registrarAsistencia($mysqli, $dato['asistencias']);
+        }
     }
 
     if(isset($_GET['action'])) {
