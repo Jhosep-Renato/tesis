@@ -6,7 +6,7 @@ const tbasistencia = document.querySelector('.tbAsistencia');
 const tbody = tbasistencia.querySelector('tbody');
 
 
-cursos.addEventListener("change", () => {
+cursos.addEventListener("change", async () => {
     
     if(cursos.value === 'seleccionar') {
         mensaje.style.display = 'block';
@@ -24,8 +24,8 @@ cursos.addEventListener("change", () => {
         let i = cursos.selectedIndex;
         let curso = cursos.options[i].id;
 
-        let asistencia = obtenerAsistencia(curso);
-
+        const asistencia = await obtenerAsistencia(curso);
+        
         if(asistencia !== null) {
            alumnosTabla(asistencia); 
         } else {
@@ -50,7 +50,8 @@ function obtenerAlumnos(curso) {
 function alumnosTabla(alumnos) {
 
     alumnos.forEach(a => {
-        /* const tr = document.createElement('tr');
+
+        const tr = document.createElement('tr');
         const td1 = document.createElement('td');
         const td2 = document.createElement('td');
         const td3 = document.createElement('td');
@@ -63,14 +64,21 @@ function alumnosTabla(alumnos) {
 
         td1.textContent = a['codigo'];
         td2.textContent = `${a['nombre']} ${a['apePaterno']} ${a['apeMaterno']}`;
-        td3.textContent = `${new Date(date).toLocaleDateString()}` */
+        td3.textContent = `${new Date(date).toLocaleDateString()}`
         
         if(a.hasOwnProperty('estado')) {
             
-            console.log('tiene estado');
+            td4.textContent = a['estado'];
+
+            if(a['estado'] == 'P') {
+                td4.style.backgroundColor = '#B9EAB3';
+            }
+            else {
+                td4.style.backgroundColor = '#D9B4BB';
+            }
         }
 
-        /* td5.appendChild(botones[0]);
+        td5.appendChild(botones[0]);
         td5.appendChild(botones[1]);
 
         tr.appendChild(td1);
@@ -79,10 +87,10 @@ function alumnosTabla(alumnos) {
         tr.appendChild(td4);
         tr.appendChild(td5);
 
-        tbody.appendChild(tr); */
+        tbody.appendChild(tr);
     });
 
-    /* agregarFunciones(); */
+    agregarFunciones();
 }
 
 function inicializarBotones() {
@@ -185,9 +193,9 @@ function registrarAsistencia(asistencias) {
         })
 }
 
-function obtenerAsistencia(curso) {
+async function obtenerAsistencia(curso) {
 
-    fetch("../controller/DocenteController.php", {
+    return fetch("../controller/DocenteController.php", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -195,13 +203,25 @@ function obtenerAsistencia(curso) {
         body:
             JSON.stringify({ curso: curso})
     })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            if(data != null) {
-                return data;
-            } else {
-                return null;
-            }
-        });
+    .then(response => {
+        // Verifica si la respuesta tiene un estado exitoso (código 200)
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+        // Convierte la respuesta a JSON y devuelve la promesa resultante
+        return response.json();
+    })
+    .then(data => {
+        // Verifica si los datos no son nulos
+        console.log(data);
+        if (data != null) {
+            return data;
+        } else {
+            return null;
+        }
+    })
+    .catch(error => {
+        console.error('Error al obtener asistencia:', error);
+        return null;
+    });
 }
