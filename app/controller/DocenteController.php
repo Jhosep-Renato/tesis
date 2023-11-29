@@ -13,7 +13,7 @@
 
             $resu = $docente->obtenerCursos($mysqli, $_SESSION['codigo']);
 
-            return $resu;
+            echo json_encode($resu);
             exit();
         }
 
@@ -45,16 +45,16 @@
             }
         }
 
-        public function obtenerAsistencia($mysqli, $dato) 
+        public function obtenerAsistencia($mysqli, $dato, $fecha) 
         {   
             $docente = new DocenteModel();
 
-            $validacion = $docente->obtenerAsistencia($mysqli, $dato);
+            $validacion = $docente->obtenerAsistencia($mysqli, $dato, $fecha);
         
             if($validacion != null) {
                 echo json_encode($validacion, JSON_UNESCAPED_UNICODE);
             } else {
-                echo json_encode("null");
+                echo json_encode(null);
             }
         }
 
@@ -81,7 +81,7 @@
         $dato = json_decode($datos_json, true);
 
         if(isset($dato['curso'])) {
-            $controller->obtenerAsistencia($mysqli, $dato['curso']);
+            $controller->obtenerAsistencia($mysqli, $dato['curso'], null);
         }
         else if(isset($dato['asistencias']) && $dato['actualizar'] === null) {
 
@@ -93,15 +93,20 @@
         }
     }
 
-    if(isset($_GET['action'])) {
-        $action = $_GET['action'];
+    if($_SERVER['REQUEST_METHOD'] === 'GET') {
+        $datos_json = file_get_contents("php://input");
 
-        switch($action) {
-
-            case 'obtenerCurso':  $controller->obtenercursos($mysqli);
-                                break;
-            case 'obtenerAlumno': $controller->obtenerAlumnos($mysqli, $_GET['curso']);
-                                break;
+        $dato = json_decode($datos_json, true);
+        
+        if(isset($_GET['fecha']) && isset($_GET['curso'])) {
+            $controller->obtenerAsistencia($mysqli, $_GET['curso'], $_GET['fecha']);
         }
+        else if(isset($_GET['curso'])) {
+            $controller->obtenerAlumnos($mysqli, $_GET['curso']);
+        }
+        else if(isset($_GET['obtenerCursos'])) {
+            $controller->obtenercursos($mysqli);
+        }
+        
     }
 ?>

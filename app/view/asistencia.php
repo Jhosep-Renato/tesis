@@ -30,10 +30,7 @@
                             <option selected value="seleccionar">Seleccionar</option>
                         </select>
                         
-                        <select class="form-select" style="width: 200px; margin-top: 40px; display:none">
-
-                        </select>
-
+                        
                         <div class="mensaje" style="margin-top: 40px;">
                             <h2 style="color: green;">Hola <?php 
                             echo $_SESSION['usuario'];
@@ -71,7 +68,6 @@
             </main>
         </div>
 
-    <script type="module" src="../assets/js/interaccion.js"></script>
     <script type="module" src="../assets/js/asistencia.js"></script>
 </body>
 </html>

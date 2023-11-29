@@ -21,7 +21,7 @@
                 $cursos = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
 
                 $stmt->close();
-                echo json_encode($cursos);
+                return $cursos;
                 
             } catch (Exception $e) {
                 return null;
@@ -95,7 +95,7 @@
         }
 
 
-        public function obtenerAsistencia($mysqli, $curso)
+        public function obtenerAsistencia($mysqli, $curso, $fecha)
         {
             date_default_timezone_set('America/Lima');
             $hoy = date("Y-m-d");
@@ -105,7 +105,12 @@
             try {
 
                 $stmt = $mysqli->prepare($sql);
-                $stmt->bind_param("ss", $curso, $hoy);
+
+                if($fecha != null){ 
+                    $stmt->bind_param("ss", $curso, $fecha);
+                } else {
+                    $stmt->bind_param("ss", $curso, $hoy);
+                }
                 $stmt->execute();
 
                 $resultado = $stmt->get_result();
@@ -163,6 +168,11 @@
             } else {
                 return $exitos;
             }
+        }
+
+        public function asistenciaFecha($mysqli, $asistencias, $fecha)
+        {
+
         }
     }
 

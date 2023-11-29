@@ -1,11 +1,34 @@
-import { cursos } from "./interaccion.js"; // exportanciones con nombres
+import { alumnosTabla, inicializarBotones, eliminarFilas, agregarFunciones, posicionBotones } from "./reutilizar.js";
 
 const divAsistencia = document.querySelector('.asistenciaDiv');
 const mensaje = document.querySelector('.mensaje');
 const tbasistencia = document.querySelector('.tbAsistencia');
-const tbody = tbasistencia.querySelector('tbody');
+export const tbody = tbasistencia.querySelector('tbody');
 const registrar = document.getElementById('registrar');
 const actualizar = document.getElementById('actualizar');
+const cursos = document.querySelector(".cursos");
+
+fetch('../controller/DocenteController.php?obtenerCursos=obtenerCurso', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
+        .then((res) => res.json())
+        .then((data) => {
+            data.forEach(curso => {
+
+                const option = document.createElement('option');
+
+                option.value = curso["codigoCurso"];
+                option.id = curso["codigoCurso"];
+                option.innerHTML = curso["nombre"];
+
+                cursos.appendChild(option);
+            });
+        })
+        .catch((err) => console.error('Error al obtener los cursos' + err) );
+
 
 cursos.addEventListener("change", async () => {
     
@@ -16,7 +39,7 @@ cursos.addEventListener("change", async () => {
     else {
         let filas = tbody.rows.length;
         if(filas > 0) {
-            eliminarFilas();
+            eliminarFilas(tbody);
         }
 
         mensaje.style.display = 'none';
@@ -27,7 +50,7 @@ cursos.addEventListener("change", async () => {
 
         const asistencia = await obtenerAsistencia(curso);
         if(asistencia != null) {
-           alumnosTabla(asistencia); 
+           alumnosTabla(asistencia, tbody, false); 
            registrar.style.display = 'none';
            actualizar.style.display = 'block';
         } else {
@@ -35,120 +58,23 @@ cursos.addEventListener("change", async () => {
             registrar.style.display = 'block';
             actualizar.style.display = 'none';
         }
-        
     }
 });
 
 function obtenerAlumnos(curso) {
-    fetch(`../controller/DocenteController.php?action=obtenerAlumno&curso=${curso}`)
+    fetch(`../controller/DocenteController.php?curso=${curso}`, {/* ?action=obtenerAlumno&curso=${curso} */
+        method: 'GET',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+    })
         .then((res) => res.json())
         .then((data) => {   
-
-            alumnosTabla(data);
+            alumnosTabla(data, tbody, false);
         })
         .catch((err) => {
             console.error('Error al obtener los alumnos: ' + err)
         });
-}
-
-function alumnosTabla(alumnos) {
-
-    alumnos.forEach(a => {
-
-        const tr = document.createElement('tr');
-        const td1 = document.createElement('td');
-        const td2 = document.createElement('td');
-        const td3 = document.createElement('td');
-        const td4 = document.createElement('td');
-        const td5 = document.createElement('td');
-
-        const botones = inicializarBotones();
-
-        const date = Date.now();
-
-        td1.textContent = a['codigo'];
-        td2.textContent = `${a['nombre']} ${a['apePaterno']} ${a['apeMaterno']}`;
-        td3.textContent = `${new Date(date).toLocaleDateString()}`
-        
-        if(a.hasOwnProperty('estado')) {
-            
-            td4.textContent = a['estado'];
-
-            if(a['estado'] == 'P') {
-                td4.style.backgroundColor = '#B9EAB3';
-            }
-            else if(a['estado'] == 'F'){
-                td4.style.backgroundColor = '#D9B4BB';
-            } 
-        }
-
-        td5.appendChild(botones[0]);
-        td5.appendChild(botones[1]);
-
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tr.appendChild(td3);
-        tr.appendChild(td4);
-        tr.appendChild(td5);
-
-        tbody.appendChild(tr);
-    });
-
-    agregarFunciones();
-}
-
-function inicializarBotones() {
-
-    const button1 = document.createElement('button');
-    const button2 = document.createElement('button');
-    const img1 = document.createElement('img');
-    const img2 = document.createElement('img');
-
-    button1.classList.add("btnI", "btn", "check");
-    button2.classList.add("btnI", "btn", "x");
-    img1.classList.add("bimg");
-    img2.classList.add("bimg");
-    img1.src = "../assets/img/check.png";
-    img2.src = "../assets/img/x.png";
-
-    button1.appendChild(img1);
-    button2.appendChild(img2);
-
-    return [button1, button2];
-}
-
-function eliminarFilas() {
-    while(tbody.firstChild) {
-        tbody.removeChild(tbody.firstChild);
-    }
-}
-
-function agregarFunciones() {
-
-    const botones = document.querySelectorAll('.btnI');
-
-    botones.forEach((b) => {
-        b.addEventListener('click', () => {
-            if(b.classList.contains('check')) {
-                let indice = posicionBotones(b);
-                indice.textContent = 'P';
-                indice.style.backgroundColor = '#B9EAB3';
-
-            } else if(b.classList.contains('x')) {
-                let indice = posicionBotones(b);
-                indice.textContent = 'F';
-                indice.style.backgroundColor = '#D9B4BB';
-            }   
-        })
-    });
-}
-
-function posicionBotones(boton) {
-    const columna = boton.parentElement;
-    const fila = columna.parentElement;
-    const indiceColumna = Array.from(fila.children).indexOf(columna);
-
-    return columna.parentElement.cells[indiceColumna - 1];
 }
 
 
@@ -228,11 +154,6 @@ async function obtenerAsistencia(curso) {
             JSON.stringify({ curso: curso})
     })
     .then(response => {
-        // Verifica si la respuesta tiene un estado exitoso (código 200)
-        /* if (!response.ok) {
-            return null;
-        } */
-        // Convierte la respuesta a JSON y devuelve la promesa resultante
         return response.json();
     })
     .then(data => {
@@ -242,8 +163,7 @@ async function obtenerAsistencia(curso) {
         else {
             return null;
         }
-        
-    })
+            })
     .catch(error => {
         console.error('Error al obtener asistencia:', error);
         return null;
