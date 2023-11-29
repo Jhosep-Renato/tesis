@@ -97,6 +97,7 @@
 
         public function obtenerAsistencia($mysqli, $curso)
         {
+            date_default_timezone_set('America/Lima');
             $hoy = date("Y-m-d");
             
             $sql = "CALL obtenerAsistencia(?, ?);";
@@ -124,6 +125,43 @@
                 throw new Exception("Error general: ". $e->getMessage(), $e->getCode());
             } finally {
                 $mysqli->close();
+            }
+        }
+
+        public function actualizarAsistencia($mysqli, $asistencias) {
+            
+            date_default_timezone_set('America/Lima');
+            $hoy = date("Y-m-d");
+            $exitos = true;
+
+            $sql = "UPDATE asistencia SET estado = ? WHERE fechaRegistro = ? AND codigoAlumno = ? AND codigoCurso = ?";
+
+            try {
+                $stmt = $mysqli->prepare($sql);
+                
+                foreach($asistencias as $a) {
+                    $stmt->bind_param("ssss", $a['estado'], $hoy, $a['codigoAlumno'],
+                                        $a['curso']);
+                
+                    if (!$stmt->execute()) {
+                        $exitos = false;  
+                    }
+                }
+
+                $stmt->close();
+
+            } catch (mysqli_sql_exception $e) {
+                throw new Exception("Error en la consulta ".$e->getMessage(), $e->getCode());
+            } catch (Exception $e) {
+                throw new Exception("Error general: " . $e->getMessage(), $e->getCode());
+            } finally {
+                $mysqli->close();
+            }
+
+            if ($exitos) {
+                return $exitos;
+            } else {
+                return $exitos;
             }
         }
     }

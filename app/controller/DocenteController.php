@@ -57,6 +57,20 @@
                 echo json_encode("null");
             }
         }
+
+        public function actualizarAsistencia($mysqli, $dato) 
+        {
+            $docente = new DocenteModel();
+
+            $validacion = $docente->actualizarAsistencia($mysqli, $dato);
+        
+            if($validacion) {
+                echo "actualizado";
+            }
+            else {
+                echo 'error';
+            }
+        }
     }
 
     $controller = new DocenteController();
@@ -69,8 +83,13 @@
         if(isset($dato['curso'])) {
             $controller->obtenerAsistencia($mysqli, $dato['curso']);
         }
-        else if(isset($dato['asistencias'])) {
+        else if(isset($dato['asistencias']) && $dato['actualizar'] === null) {
+
             $controller->registrarAsistencia($mysqli, $dato['asistencias']);
+        }
+        else if(isset($dato['actualizar'])) {
+
+            $controller->actualizarAsistencia($mysqli, $dato['asistencias']);
         }
     }
 

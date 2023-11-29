@@ -58,9 +58,10 @@
                             </table>
 
                             <button type="button" class="btn btn-outline-primary" id="registrar">Registrar</button>
+                            <button type="button" class="btn btn-outline-primary" id="actualizar" style="display: none;">Actualizar</button>
 
-                            <div class="alert alert-success" role="alert" style="display: none;">
-                                Asistencia Registrada!
+                            <div class="alert alert-success" role="alert" style="display: none;" id="alert">
+                                
                             </div>
                         </div>
 
