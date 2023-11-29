@@ -77,9 +77,9 @@ function alumnosTabla(alumnos) {
             if(a['estado'] == 'P') {
                 td4.style.backgroundColor = '#B9EAB3';
             }
-            else {
+            else if(a['estado'] == 'F'){
                 td4.style.backgroundColor = '#D9B4BB';
-            }
+            } 
         }
 
         td5.appendChild(botones[0]);

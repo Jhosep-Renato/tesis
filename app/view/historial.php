@@ -18,28 +18,36 @@
     <link href="../assets/css/estilo.css" rel="stylesheet">
     <link rel="icon" href="../assets/img/ovala.png">
 </head>
-<body>
+    <body>
         <?php require('templates/header.php') ?>  
 
                         <h1>Historial de asistencia</h1>
                         <select class="form-select cursos" aria-label="Default select example" style="width: 200px;">
-                            <option selected>Seleccionar</option>
+                            <option selected value="seleccionar">Seleccionar</option>
                         </select>
 
                         <input type="date" class="form-control" id="fecha" name="fecha" required>
-                        
-                        <table class="table table-bordered">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">ESTUDIANTE</th>
-                                    <th scope="col">%</th>
-                                </tr>
-                            </thead>
-                            <tbody>
 
-                            </tbody>
-                        </table>
+                        <div class="mensaje" style="margin-top: 40px;">
+                            <h2 style="color: green;" class="h2">Hola <?php 
+                            echo $_SESSION['usuario'];
+                         ?>, por favor seleccione un curso</h2>
+                        </div>
+                        
+                        <div class="historialDiv" style="display: none; margin-top: 40px;" >
+                            <table class="table table-bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">ESTUDIANTE</th>
+                                        <th scope="col">%</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </article>
                         
                 </section>
@@ -47,5 +55,6 @@
         </div>
 
         <script type="module" src="../assets/js/interaccion.js"></script>
-</body>
+        <script type="module" src="../assets/js/historial.js"></script>
+    </body>
 </html>
