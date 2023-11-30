@@ -121,11 +121,11 @@ function registrarAsistencia(asistencias, actualizar) {
             'Content-Type': 'application/json'
         },
         body: 
-            JSON.stringify({ asistencias: asistencias, actualizar: actualizar})
+            JSON.stringify({ asistencias: asistencias, actualizar: actualizar, validacion: false})
     })
         .then(res => res.text())
         .then(data =>  {
-            
+            console.log(data);
             if(actualizar !== null && data == 'actualizado') {
                 bloques("Actualizado correctamente!");
             } else if(actualizar == null && data == 'registrado'){

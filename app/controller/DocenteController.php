@@ -58,11 +58,11 @@
             }
         }
 
-        public function actualizarAsistencia($mysqli, $dato) 
+        public function actualizarAsistencia($mysqli, $dato, $veri) 
         {
             $docente = new DocenteModel();
 
-            $validacion = $docente->actualizarAsistencia($mysqli, $dato);
+            $validacion = $docente->actualizarAsistencia($mysqli, $dato, $veri);
         
             if($validacion) {
                 echo "actualizado";
@@ -89,7 +89,7 @@
         }
         else if(isset($dato['actualizar'])) {
 
-            $controller->actualizarAsistencia($mysqli, $dato['asistencias']);
+            $controller->actualizarAsistencia($mysqli, $dato['asistencias'], $dato['validacion']);
         }
     }
 

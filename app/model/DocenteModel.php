@@ -133,11 +133,12 @@
             }
         }
 
-        public function actualizarAsistencia($mysqli, $asistencias) {
+        public function actualizarAsistencia($mysqli, $asistencias, $veri) {
             
             date_default_timezone_set('America/Lima');
             $hoy = date("Y-m-d");
             $exitos = true;
+
 
             $sql = "UPDATE asistencia SET estado = ? WHERE fechaRegistro = ? AND codigoAlumno = ? AND codigoCurso = ?";
 
@@ -145,7 +146,8 @@
                 $stmt = $mysqli->prepare($sql);
                 
                 foreach($asistencias as $a) {
-                    $stmt->bind_param("ssss", $a['estado'], $hoy, $a['codigoAlumno'],
+                    $fecha = $veri ? $a['fecha'] : $hoy;
+                    $stmt->bind_param("ssss", $a['estado'], $fecha, $a['codigoAlumno'],
                                         $a['curso']);
                 
                     if (!$stmt->execute()) {
@@ -153,7 +155,7 @@
                     }
                 }
 
-                $stmt->close();
+                $stmt->close(); 
 
             } catch (mysqli_sql_exception $e) {
                 throw new Exception("Error en la consulta ".$e->getMessage(), $e->getCode());
