@@ -71,6 +71,15 @@
                 echo 'error';
             }
         }
+
+        public function obtenerAsistenciaTotal($mysqli, $curso) 
+        {
+            $docente = new DocenteModel();
+
+            $val = $docente->asistenciaTotal($mysqli, $curso);
+            
+            echo json_encode($val);
+        } 
     }
 
     $controller = new DocenteController();
@@ -80,7 +89,7 @@
 
         $dato = json_decode($datos_json, true);
 
-        if(isset($dato['curso'])) {
+        if(isset($dato['curso']) && !isset($dato['todo'])) {
             $controller->obtenerAsistencia($mysqli, $dato['curso'], null);
         }
         else if(isset($dato['asistencias']) && $dato['actualizar'] === null) {
@@ -90,6 +99,9 @@
         else if(isset($dato['actualizar'])) {
 
             $controller->actualizarAsistencia($mysqli, $dato['asistencias'], $dato['validacion']);
+        } else if(isset($dato['todo'])) {
+
+            $controller->obtenerAsistenciaTotal($mysqli, $dato['curso']);
         }
     }
 

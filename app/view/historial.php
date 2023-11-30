@@ -52,6 +52,6 @@
             </main>
         </div>
 
-        <script type="module" src="../assets/js/interaccion.js"></script>
+        <script type="module" src="../assets/js/historial.js"></script>
     </body>
 </html>

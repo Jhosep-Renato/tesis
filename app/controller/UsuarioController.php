@@ -28,7 +28,7 @@
                 header("Location: ../../index.php");
                 exit();
             } else {
-                echo json_encode($usuario);
+                header("Location: ../../index.php");
             }
         }
     }

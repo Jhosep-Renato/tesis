@@ -172,8 +172,34 @@
             }
         }
 
-        public function asistenciaFecha($mysqli, $asistencias, $fecha)
-        {
+        public function asistenciaTotal($mysqli, $curso)
+        {   
+            $sql = "SELECT a.fechaRegistro, a.estado, al.codigo, al.nombre, al.apePaterno, al.apeMaterno 
+            FROM asistencia AS a INNER JOIN alumno AS al ON a.codigoAlumno = al.codigo WHERE codigoCurso = ?";
+
+            try {
+
+                $stmt = $mysqli->prepare($sql);
+                $stmt->bind_param("s", $curso);
+
+                $stmt->execute();
+
+                $resultado = $stmt->get_result();
+
+                if( $resultado->num_rows > 0 ) {
+                    return $resultado->fetch_all(MYSQLI_ASSOC);
+                }
+                else {
+                    return null;
+                }
+                
+            } catch(mysqli_sql_exception $e) {
+                throw new Exception("Error en la consulta ".$e->getMessage(), $e->getCode());
+            } catch (Exception $e) {
+                throw new Exception("Error general: " . $e->getMessage(), $e->getCode());
+            } finally {
+                $mysqli->close();
+            }
 
         }
     }
