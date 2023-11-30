@@ -8,6 +8,7 @@ const cursos2 = document.querySelector('.cursos2');
 const tb = document.querySelector('.tbActualizacion');
 const tbody = tb.querySelector('tbody');
 const actualizar = document.getElementById("actualizar");
+const alerta = document.getElementById('alert');
 
 // CODIGO AL HACER INTERACCION CON LOS OPTIONS O INPUT DATE 
 fetch('../controller/DocenteController.php?obtenerCursos=obtenerCurso', {
@@ -34,7 +35,7 @@ fetch('../controller/DocenteController.php?obtenerCursos=obtenerCurso', {
 
 const texto = h2.innerHTML.split(",");
 cursos2.addEventListener("change", () => {
-
+    historialDiv.style.display = 'none';
     if(cursos2.value === 'seleccionar') {
         fecha.value = "";
         mensaje.style.display = 'block';
@@ -47,14 +48,20 @@ cursos2.addEventListener("change", () => {
     }
 });
 
-fecha.addEventListener("change", () => {
+fecha.addEventListener("change", async () => {
     if(fecha.value !== "" && cursos2.value !== 'seleccionar') {
         let filas = tbody.rows.length;
         if(filas > 0) {
             eliminarFilas(tbody);
         }
-        obtenerAlumno();
-        historialDiv.style.display = 'block';
+        
+        if(await obtenerAlumno()) {
+            historialDiv.style.display = 'block';
+        }
+        else {
+            historialDiv.style.display = 'none';
+            alert('No hay datos');
+        }
         mensaje.style.display = 'none';
     }
     else if(fecha.value === '') {
@@ -65,12 +72,11 @@ fecha.addEventListener("change", () => {
 
 
 // BLOQUE PARA LA ACTUALIZACION DE ASISTENCIA
-let datos = null;
-function obtenerAlumno() {
+async function obtenerAlumno() {
     let i = cursos2.selectedIndex;
     let curso = cursos2.options[i].id;
-    
-    fetch(`../controller/DocenteController.php?curso=${curso}&fecha=${fecha.value}`, {
+
+    return fetch(`../controller/DocenteController.php?curso=${curso}&fecha=${fecha.value}`, {
         method: 'GET',
         headers: {
             'Content-Type' : 'application/json'
@@ -78,13 +84,12 @@ function obtenerAlumno() {
     })
         .then((res) => res.json())
         .then((data) => {   
-            datos = data;
+
             if(data !== null) {
                 alumnosTabla(data, tbody, true);
-            } else {
-                console.log("No hay nada que traer");
-            }
-            
+                return true;
+            } 
+            return false;
         })
         .catch((err) => {
             console.error('Error al obtener los alumnos: ' + err)
@@ -98,7 +103,6 @@ actualizar.addEventListener("click", () => {
 
 function actualizarTabla(asistencias, actualizar) {
 
-
     fetch("../controller/DocenteController.php", {
         method: 'POST',
         headers: {
@@ -111,9 +115,7 @@ function actualizarTabla(asistencias, actualizar) {
         .then(data =>  {
             
             if(actualizar !== null && data == 'actualizado') {
-                console.log("Actualizado correctamente!");
-            } else if(actualizar == null && data == 'registrado'){
-                console.log("Asistencia Registrada!");
+                bloques('Actualizado correctamente!');
             }
         })
 }
@@ -136,4 +138,13 @@ function extraerDatos() {
         arrayAsistencias.push(asistencia);
     }
     return arrayAsistencias;
+}
+
+function bloques(texto) {
+    alerta.innerHTML = texto;
+    alerta.style.display = 'block';
+
+    setTimeout(() => {
+        alerta.style.display = 'none';
+    }, 3000);
 }

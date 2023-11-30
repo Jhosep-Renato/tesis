@@ -31,10 +31,13 @@ export function alumnosTabla(alumnos, body, verificar) {
             }
             else if(a['estado'] == 'F'){
                 td4.style.backgroundColor = '#D9B4BB';
-            } 
+            } else {
+                td4.style.backgroundColor = '#e2d27b';
+            }
         }
 
         td5.appendChild(botones[0]);
+        td5.appendChild(botones[2]);
         td5.appendChild(botones[1]);
 
         tr.appendChild(td1);
@@ -53,20 +56,28 @@ export function inicializarBotones() {
 
     const button1 = document.createElement('button');
     const button2 = document.createElement('button');
+    const button3 = document.createElement('button');
     const img1 = document.createElement('img');
     const img2 = document.createElement('img');
+    const img3 = document.createElement('img');
 
     button1.classList.add("btnI", "btn", "check");
     button2.classList.add("btnI", "btn", "x");
+    button3.classList.add("btnI", "btn", "reloj");
+
     img1.classList.add("bimg");
     img2.classList.add("bimg");
+    img3.classList.add("bimg");
+
     img1.src = "../assets/img/check.png";
     img2.src = "../assets/img/x.png";
+    img3.src = "../assets/img/reloj.jpg";
 
     button1.appendChild(img1);
     button2.appendChild(img2);
+    button3.appendChild(img3);
 
-    return [button1, button2];
+    return [button1, button2, button3];
 }
 
 export function eliminarFilas(tbody) {
@@ -90,7 +101,11 @@ export function agregarFunciones() {
                 let indice = posicionBotones(b);
                 indice.textContent = 'F';
                 indice.style.backgroundColor = '#D9B4BB';
-            }   
+            } else {
+                let indice = posicionBotones(b);
+                indice.textContent = 'T';
+                indice.style.backgroundColor = '#e2d27b';
+            }
         })
     });
 }
