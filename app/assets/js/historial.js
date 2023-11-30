@@ -89,10 +89,11 @@ function calcularAsistencia(fechaUnicas, datos) {
 
     eliminarFilas(tbody);
 
+    let e = 0;
     for (let item of nombresUnicos) {
         let alumno = item;
         let cortar = alumno.split(",");
-        porcentajes[i] = (porcentajes[i] / (fechaUnicas * 100)) * 100;
+        porcentajes[e] /= fechaUnicas;
 
         const tr = document.createElement('tr');
         const td1 = document.createElement('td');
@@ -101,12 +102,12 @@ function calcularAsistencia(fechaUnicas, datos) {
 
         td1.textContent = cortar[0];
         td2.textContent = `${cortar[1]} ${cortar[2]} ${cortar[3]}`;
-        td3.textContent = porcentajes[i];
+        td3.textContent = `${Math.round(porcentajes[e])}%`;
 
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
-
+        e++;
         tbody.appendChild(tr);
     }
 }
