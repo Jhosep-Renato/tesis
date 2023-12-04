@@ -30,7 +30,7 @@
                     <h4><b>INTRANET EARPFIM</b></h4>
                     <h4>Sistema de Planificación de Recursos Académicos y Empresariales</h4>
                 </article>
-                <article>
+                <article class="formulario">
                     <form id="formulario" action="app/controller/UsuarioController.php" method="post">
                         <div class="mb-3">
                           <label for="usuario" class="form-label">Usuario</label>

@@ -60,7 +60,7 @@ async function obtenerAsistenciaCurso() {
             data.forEach(a => {
                 fechasUnicas.add(a['fechaRegistro']);
             });
-            let porcentaje = calcularAsistencia(fechasUnicas.size, data);
+            calcularAsistencia(fechasUnicas.size, data);
         })
         .catch((err) => console.error('Error al obtener la asistencia ' + err));
 }

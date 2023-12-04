@@ -23,9 +23,9 @@
 
                 if($usuario->getTipo() != 1) {
                     header("Location: ../view/asistencia.php");
-                    exit();
+                } else {
+                    header("Location: ../view/admin/inicioAdmin.php");
                 }
-                header("Location: ../../index.php");
                 exit();
             } else {
                 header("Location: ../../index.php");
