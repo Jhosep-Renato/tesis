@@ -97,3 +97,21 @@ div.alert {
     margin-top: 40px;
     margin-right: 1500px;
 }
+
+
+#formularioCurso > input {
+    width: 60%;
+    margin-bottom: 10px;
+}
+
+.contForm {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hijo {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
