@@ -19,19 +19,6 @@
             exit();
         }
 
-        public function obtenerCursos($mysqli, $codigo) 
-        {
-            $admin = new AdministradorModel();
-            $cursos = $admin->obtenerCursos($mysqli, $codigo);
-
-            if($cursos !== null) {
-                echo json_encode($cursos);
-            }
-            else {
-                echo json_encode(null);
-            }
-        }
-
         public function obtenerDatosCursos($mysqli) 
         {   
             $admin = new AdministradorModel();
@@ -48,13 +35,13 @@
         public function asignarCurso($mysqli, $curso) 
         {
             $admin = new AdministradorModel();
-            $cursos = $admin->asignarCurso($mysqli, $curso);
+            $validacion = $admin->asignarCurso($mysqli, $curso);
 
-            if($cursos !== null) {
-                echo json_encode($cursos);
+            if($validacion) {
+                echo json_encode(true);
             }
             else {
-                echo json_encode(null);
+                echo json_encode(false);
             }
         }
     }
@@ -69,11 +56,8 @@
         if(isset($dato['docente'])) {
             $controller->añadirDocente($mysqli, $dato['docente']);
         }
-        else if(isset($dato['codigo'])) {
-            $controller->obtenerCursos($mysqli, $dato['codigo']);
-        }
         else if(isset($dato['curso'])) {
-            $controller->obtenerCursos($mysqli, $dato['curso']);
+            $controller->asignarCurso($mysqli, $dato['curso']);
         }
     }
     else {

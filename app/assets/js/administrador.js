@@ -61,64 +61,43 @@ guardar.addEventListener("click", () => {
     limpiarFormulario();
 });
 
-asignar.addEventListener("click", () => {
-
+asignar.addEventListener("click", (e) => {
+    
+    e.preventDefault();
     const formData = new FormData(formularioCurso);
 
     const curso = {
         docente: formData.get("docente"),
-        curso: formData.get("curso"),
+        curso: formData.get("curso").toUpperCase(),
         fechaInicio: formData.get("fechaInicio"),
         fechaFinal: formData.get("fechaFin"),
         grupo: formData.get("grupo")
     }
 
-    fetch("../../controller/AdministradorController.php", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body:
-            JSON.stringify( {curso: curso} )
-
-    })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-        })
-});
-
-/* buscar.addEventListener("click", () => {
-
-    const codDocente = document.querySelector(".rounded").value;
-
-    if(codDocente !== "") {
+    if(validarCurso(curso)) {
         fetch("../../controller/AdministradorController.php", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body:
-                JSON.stringify( {codigo: codDocente} )
-
+                JSON.stringify( {curso: curso} )
+    
         })
             .then((res) => res.json())
             .then((data) => {
-                if(data !== null) {
-                    if(data.length > 0) {
-
-                    }
-                    divTabla.style.display = 'block';
+                if(!data) {
+                    alert("Verifique los datos porfavor");
+                } else {
+                    reutilizarTabla();
                 }
-                console.log(data);
             })
+    } else {
+        alert("Llena el formulario");
     }
-    else {
-        divTabla.style.display = 'none';
-        alert("Digite un codigo");
-    }
-})
- */
+
+});
+
 cerrar.addEventListener("click", () => {
     limpiarFormulario();
 });
@@ -145,7 +124,7 @@ function llamarTablaCurso(datos) {
         const td4 = document.createElement('td');
 
         td1.textContent = d['idGrupo'];
-        td2.textContent = d['nombre'];
+        td2.textContent = d['nombre'].toUpperCase();
         td3.textContent = d['idHorario'];
         td4.textContent = d['codigoDocente'];
 
@@ -163,4 +142,24 @@ function eliminarFilas(tbody) {
     while(tbody.firstChild) {
         tbody.removeChild(tbody.firstChild);
     }
+}
+
+function validarCurso(curso) {
+    for (let propiedad in curso) {
+        if (curso.hasOwnProperty(propiedad) && curso[propiedad] === "") {
+            return false;  // Si alguna propiedad está vacía, retorna falso
+        }
+    }
+    return true;  // Todas las propiedades tienen valores, retorna verdadero
+}
+
+function reutilizarTabla() {
+    fetch("../../controller/AdministradorController.php", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then((res) => res.json())
+        .then((data) => llamarTablaCurso(data))
 }

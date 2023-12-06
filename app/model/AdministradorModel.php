@@ -33,33 +33,6 @@
             }
         } 
 
-        public function obtenerCursos($mysqli, $codigo)
-        {
-            try {
-                $consulta = "CALL obtenerCurso(?)";
-
-                $stmt = $mysqli->prepare($consulta);
-
-                $stmt->bind_param("s", $codigo);
-
-                $stmt->execute();
-
-                $resultado = $stmt->get_result();
-
-                
-                $cursos = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
-
-                $stmt->close();
-                return $cursos;
-                
-            } catch (Exception $e) {
-                return null;
-
-            } finally {
-                $mysqli->close();
-            }
-        }
-
 
         public function obtenerDatosCursos($mysqli)
         {
@@ -85,7 +58,32 @@
 
         public function asignarCurso($mysqli, $curso)
         {
-            
+            try {
+                $consulta = "CALL asignarCurso(?, ?, ?, ?, ?)";
+                $stmt = $mysqli->prepare($consulta);
+
+                $stmt->bind_param("sssss", $curso['docente'], $curso['curso'], $curso['fechaInicio'], $curso['fechaFinal'], $curso['grupo']);
+                
+                if ($stmt->execute()) {
+                    // La ejecución fue exitosa, ahora verifica si se insertaron filas
+                    if ($stmt->affected_rows > 0) {
+                        $stmt->close();
+                        return true;  // Se insertaron filas correctamente
+                    } else {
+                        $stmt->close();
+                        return false;  // No se insertaron filas (puede ser un caso de inserción duplicada, etc.)
+                    }
+                } else {
+                    $stmt->close();
+                    return false;  // Error durante la ejecución
+                }
+                
+            } catch (Exception $e) {
+                return null;
+
+            } finally {
+                $mysqli->close();
+            }
         }
     }
 ?>
