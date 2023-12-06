@@ -32,6 +32,31 @@
             }
         }
 
+        public function obtenerDatosCursos($mysqli) 
+        {   
+            $admin = new AdministradorModel();
+            $datos = $admin->obtenerDatosCursos($mysqli);
+
+            if($datos !== null) {
+                echo json_encode($datos);
+            }
+            else {
+                echo json_encode($datos);
+            }
+        }
+
+        public function asignarCurso($mysqli, $curso) 
+        {
+            $admin = new AdministradorModel();
+            $cursos = $admin->asignarCurso($mysqli, $curso);
+
+            if($cursos !== null) {
+                echo json_encode($cursos);
+            }
+            else {
+                echo json_encode(null);
+            }
+        }
     }
 
     $controller = new AdministradorController();
@@ -47,6 +72,12 @@
         else if(isset($dato['codigo'])) {
             $controller->obtenerCursos($mysqli, $dato['codigo']);
         }
+        else if(isset($dato['curso'])) {
+            $controller->obtenerCursos($mysqli, $dato['curso']);
+        }
+    }
+    else {
+       $controller->obtenerDatosCursos($mysqli);
     }
 
 ?>

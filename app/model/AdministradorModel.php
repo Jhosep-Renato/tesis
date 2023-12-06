@@ -59,5 +59,33 @@
                 $mysqli->close();
             }
         }
+
+
+        public function obtenerDatosCursos($mysqli)
+        {
+            try {
+                $consulta = "SELECT g.idGrupo, c.nombre, c.idHorario, h.codigoDocente FROM grupocurso AS g INNER JOIN curso AS c 
+                ON g.codigoCurso = c.codigoCurso INNER JOIN horario AS h ON c.idHorario = h.idHorario";
+                
+                $stmt = $mysqli->prepare($consulta);
+                $stmt->execute();
+                $r = $stmt->get_result();
+
+                $datos = mysqli_fetch_all($r, MYSQLI_ASSOC);
+
+                $stmt->close();
+                return $datos;
+                                
+            } catch (Exception $e) {
+                return null;
+            } finally {
+                $mysqli->close();
+            }
+        }
+
+        public function asignarCurso($mysqli, $curso)
+        {
+            
+        }
     }
 ?>

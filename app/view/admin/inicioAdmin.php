@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actualizar Asistencia</title>
+    <title>Administrador</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="../../assets/css/estilo.css" rel="stylesheet">
     <link rel="icon" href="../../assets/img/ovala.png">
@@ -103,8 +103,12 @@
                         <h3 class="my-4">Asignar curso</h3>
 
                         <div class="container contForm">
+
                             <form id="formularioCurso">
                                 <div class="hijo">
+                                    <label for="docente">Codigo Docente: </label>
+                                    <input type="text" name="docente" class="form-control" id="docente" required>
+
                                     <label for="curso">Nombre Curso: </label>
                                     <input type="text" name="curso" class="form-control" id="curso" required>
                                     
@@ -117,36 +121,24 @@
                                     <label for="grupo">Grupo Nmr: </label>
                                     <input type="text" name="grupo" class="form-control" id="grupo" required>
 
-                                    <button type="submit" class="btn btn-primary my-4">Asignar</button>
+                                    <button type="submit" class="btn btn-primary my-4" id="asignar">Asignar</button>
                                 </div>
-                                
                             </form>
+
                         </div>
 
-                        <div class="input-group" style="margin-top: 50px; width: 35%; margin-left: auto; margin-right: auto;">
-                            <input type="search" class="form-control rounded" placeholder="Codigo Docente" aria-label="Search" aria-describedby="search-addon"/>
-                            <button type="button" class="btn btn-outline-primary buscar" data-mdb-ripple-init>Buscar</button>
-                        </div>
-
-                        
-                        
-
-                        <div class="tabla" style="display: none;">
                             <table class="table table-bordered">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th scope="col">Horario</th>
-                                        <th scope="col">Curso</th>
-                                        <th scope="col">Fecha Inicio</th>
-                                        <th scope="col">Fecha Finalización</th>
                                         <th scope="col">Grupo</th>
+                                        <th scope="col">Curso</th>
+                                        <th scope="col">Horario</th>
+                                        <th scope="col">Codigo docente</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 </tbody>
                             </table>
-
-                        </div>
                         
 
                     </article>

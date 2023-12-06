@@ -1,9 +1,23 @@
 const formulario = document.getElementById("formularioDocente");
 const guardar = document.getElementById("guardar");
-const buscar = document.querySelector(".buscar");
-const divTabla = document.querySelector(".tabla");
 const cerrar = document.getElementById("cerrar");
 const inputBuscar = document.querySelector(".rounded");
+const tabla = document.querySelector(".table")
+const tbody = tabla.querySelector("tbody");
+const d = document.getElementById("docente");
+const asignar = document.getElementById("asignar");
+const formularioCurso = document.getElementById("formularioCurso");
+// Llenado de tabla al iniciar administrador
+
+fetch("../../controller/AdministradorController.php", {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
+    .then((res) => res.json())
+    .then((data) => llamarTablaCurso(data))
+
 
 guardar.addEventListener("click", () => {
 
@@ -39,16 +53,42 @@ guardar.addEventListener("click", () => {
     })
         .then((res) => res.json())
         .then((data) => {
-            if(seleccionado !== 'no') {
-                inputBuscar.value = data;
+            if(seleccionado === 'si') {
+                d.value = data;
             }
         });
 
     limpiarFormulario();
 });
 
+asignar.addEventListener("click", () => {
 
-buscar.addEventListener("click", () => {
+    const formData = new FormData(formularioCurso);
+
+    const curso = {
+        docente: formData.get("docente"),
+        curso: formData.get("curso"),
+        fechaInicio: formData.get("fechaInicio"),
+        fechaFinal: formData.get("fechaFin"),
+        grupo: formData.get("grupo")
+    }
+
+    fetch("../../controller/AdministradorController.php", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body:
+            JSON.stringify( {curso: curso} )
+
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+        })
+});
+
+/* buscar.addEventListener("click", () => {
 
     const codDocente = document.querySelector(".rounded").value;
 
@@ -78,7 +118,7 @@ buscar.addEventListener("click", () => {
         alert("Digite un codigo");
     }
 })
-
+ */
 cerrar.addEventListener("click", () => {
     limpiarFormulario();
 });
@@ -93,6 +133,34 @@ function limpiarFormulario() {
     }
 }
 
-function llenarTabla() {
-    
+function llamarTablaCurso(datos) {
+
+    eliminarFilas(tbody);
+    datos.forEach(d => {
+
+        const tr = document.createElement('tr');
+        const td1 = document.createElement('td');
+        const td2 = document.createElement('td');
+        const td3 = document.createElement('td');
+        const td4 = document.createElement('td');
+
+        td1.textContent = d['idGrupo'];
+        td2.textContent = d['nombre'];
+        td3.textContent = d['idHorario'];
+        td4.textContent = d['codigoDocente'];
+
+
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+
+        tbody.appendChild(tr);
+    });
+}
+
+function eliminarFilas(tbody) {
+    while(tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
+    }
 }
