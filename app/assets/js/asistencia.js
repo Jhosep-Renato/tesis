@@ -115,32 +115,42 @@ function registrarAsistencia(asistencias, actualizar) {
 
     const alert = document.getElementById('alert');
 
-    fetch("../controller/DocenteController.php", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: 
-            JSON.stringify({ asistencias: asistencias, actualizar: actualizar, validacion: false})
-    })
-        .then(res => res.text())
-        .then(data =>  {
-            console.log(data);
-            if(actualizar !== null && data == 'actualizado') {
-                bloques("Actualizado correctamente!");
-            } else if(actualizar == null && data == 'registrado'){
-                bloques("Asistencia Registrada!");
-            }
+    if(verificacionEstado(asistencias) === true) {
+        fetch("../controller/DocenteController.php", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: 
+                JSON.stringify({ asistencias: asistencias, actualizar: actualizar, validacion: false})
         })
-        
-        function bloques(texto) {
-            alert.innerHTML = texto;
-            alerta.style.display = 'block';
-
-            setTimeout(() => {
-                alerta.style.display = 'none';
-            }, 3000);
-        }
+            .then(res => res.text())
+            .then(data =>  {
+    
+                if(actualizar !== null && data == 'actualizado') {
+                    bloques("Actualizado correctamente!");
+                } else if(actualizar == null && data == 'registrado'){
+                    bloques("Asistencia Registrada!");
+                }
+            })
+            
+            function bloques(texto) {
+                alert.innerHTML = texto;
+                alerta.style.display = 'block';
+    
+                setTimeout(() => {
+                    alerta.style.display = 'none';
+                }, 3000);
+            }
+    } 
+    else {
+        alert.innerHTML = "Valida las asistencias";
+        alerta.style.display = 'block';
+        setTimeout(() => {
+            alerta.style.display = 'none';
+        }, 3000);
+    }
+    
 }
 
 async function obtenerAsistencia(curso) {
@@ -168,4 +178,14 @@ async function obtenerAsistencia(curso) {
         console.error('Error al obtener asistencia:', error);
         return null;
     });
+}
+
+function verificacionEstado(asistencia) {
+    let validar = true;
+
+    for(let i = 0; i < asistencia.length; i++) {
+
+        if(asistencia[i].estado === "" || asistencia[i].estado === null) validar = false;
+    }
+    return validar;
 }
